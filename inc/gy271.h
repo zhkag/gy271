@@ -52,9 +52,9 @@ void gy271_deinit(gy271_device_t dev);
 
 /**
  * @description: gy271 read data;
- * @param gy271 device
- * @return: x,y,z's data
+ * @param gy271 device, gy271_data struct pointer
+ * @return: error code
  */
-gy271_data_t gy271_read_data(gy271_device_t dev);
+rt_err_t gy271_read_data(gy271_device_t dev,struct gy271_data  *data);
 
 #endif

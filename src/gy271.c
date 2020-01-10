@@ -103,10 +103,10 @@ void gy271_deinit(gy271_device_t dev)
     rt_free(dev);
 }
 
-gy271_data_t gy271_read_data(gy271_device_t dev)
+rt_err_t gy271_read_data(gy271_device_t dev,struct gy271_data  *data)
 {
     uint8_t buffer[6];
-    gy271_data_t data;
+    //gy271_data_t data;
     rt_err_t result;
 
     RT_ASSERT(dev);
@@ -119,72 +119,52 @@ gy271_data_t gy271_read_data(gy271_device_t dev)
         {
             buffer[0] = 0xFF - buffer[0];
             buffer[1] = 0xFF - buffer[1];
-            data.x = buffer[0] * 256 + buffer[1];
-            data.x = data.x * -1;
+            data->x = buffer[0] * 256 + buffer[1];
+            data->x = data->x * -1;
         }
         else
         {
-            data.x = buffer[0] * 256 + buffer[1];
+            data->x = buffer[0] * 256 + buffer[1];
         }
         if (buffer[2] & 0x80)
         {
             buffer[2] = 0xFF - buffer[2];
             buffer[3] = 0xFF - buffer[3];
-            data.y = buffer[2] * 256 + buffer[3];
-            data.y = data.y * -1;
+            data->y = buffer[2] * 256 + buffer[3];
+            data->y = data->y * -1;
         }
         else
         {
-            data.y = buffer[2] * 256 + buffer[3];
+            data->y = buffer[2] * 256 + buffer[3];
         }
 
         if (buffer[4] & 0x80)
         {
             buffer[4] = 0xFF - buffer[4];
             buffer[5] = 0xFF - buffer[5];
-            data.z = buffer[4] * 256 + buffer[5];
-            data.z = data.z * -1;
+            data->z = buffer[4] * 256 + buffer[5];
+            data->z = data->z * -1;
         }
         else
         {
-            data.z = buffer[4] * 256 + buffer[5];
+            data->z = buffer[4] * 256 + buffer[5];
         }
         
-        data.x = data.x*1000*1.0/2048;
-        data.y = data.y*1000*1.0/2048;
-        data.z = data.z*1000*1.0/2048;
+        data->x = data->x*1000*1.0/2048;
+        data->y = data->y*1000*1.0/2048;
+        data->z = data->z*1000*1.0/2048;
     }
     else
     {
+        return -RT_ERROR;
         LOG_E("The gy271 could not respond data read at this time. Please try again");
     }
     rt_mutex_release(dev->lock);
 
-    return data;
+    return RT_EOK;
 }
 
 
-static rt_err_t i2c_gy271_sample(int argc, char *argv[])
-{
-    char bus[RT_NAME_MAX];
-    gy271_data_t data;
-    if (argc == 2)
-    {
-        rt_strncpy(bus, argv[1], RT_NAME_MAX);
-    }
-    else
-    {
-        rt_strncpy(bus, "i2c1", RT_NAME_MAX);
-    }
-    gy271_device_t dev = gy271_init(bus);
-    for (int i = 0; i < 10; i++)
-    {
-        data = gy271_read_data(dev);
-        LOG_I("x:%d y:%d z:%d", data.x, data.y, data.z);
-        rt_thread_mdelay(100);
-    }
-}
 
-MSH_CMD_EXPORT(i2c_gy271_sample, i2c gy271 sample);
 
 #endif

@@ -34,13 +34,22 @@ static rt_err_t _gy271_init(struct rt_sensor_intf *intf)
 static rt_size_t _gy271_polling_get_data(rt_sensor_t sensor, struct rt_sensor_data *data)
 {
     gy271_data_t mag_data;
+    rt_err_t result;
     if(sensor->info.type = RT_SENSOR_CLASS_MAG)
     {
-        mag_data = gy271_read_data(temp_honey_dev);
-        data->data.mag.x = mag_data.x;
-        data->data.mag.y = mag_data.y;
-        data->data.mag.z = mag_data.z;
-        data->timestamp = rt_sensor_get_ts();
+        result = gy271_read_data(temp_honey_dev,&mag_data);
+        if(result == RT_EOK)
+        {
+            data->data.mag.x = mag_data.x;
+            data->data.mag.y = mag_data.y;
+            data->data.mag.z = mag_data.z;
+            data->timestamp = rt_sensor_get_ts();
+        }
+        else
+        {
+            LOG_E('gy271 read data error!');
+        }
+        
     }
     else
     {
