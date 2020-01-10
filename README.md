@@ -1,8 +1,8 @@
 <!--
  * @Author: your name
  * @Date: 2020-01-10 10:52:06
- * @LastEditTime: 2020-01-10 11:00:00
- * @LastEditors: your name
+ * @LastEditTime : 2020-01-10 13:36:19
+ * @LastEditors  : Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /stm32f407-atk-explorer/gy271/README.md
  -->
@@ -57,4 +57,4 @@ GY271 采用 HMC5843 芯片,HMC5843 采用霍尼韦尔的各向异性磁阻(AMR)
 维护人:
 
 * [jch12138](https://github.com/jch12138)
-* 主页: []
+* 主页: [https://github.com/jch12138/gy271](https://github.com/jch12138/gy271)
