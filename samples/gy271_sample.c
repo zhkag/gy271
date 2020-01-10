@@ -10,6 +10,7 @@
 
 #include "sensor_honey_gy271.h"
 
+#ifdef PKG_USING_GY271_SAMPLE
 static rt_err_t sensor_gy271_sample(int argc, char *argv[])
 {
     static rt_device_t sensor_dev;         /* 传感器设备句柄 */
@@ -53,3 +54,5 @@ static rt_err_t i2c_gy271_sample(int argc, char *argv[])
 }
 
 MSH_CMD_EXPORT(i2c_gy271_sample, i2c gy271 sample);
+
+#endif

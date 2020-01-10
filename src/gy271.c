@@ -22,8 +22,6 @@
 #define DBG_COLOR
 #include <rtdbg.h>
 
-#define PKG_USING_GY271
-
 #ifdef PKG_USING_GY271
 
 #define GY271_ADDR 0x1E

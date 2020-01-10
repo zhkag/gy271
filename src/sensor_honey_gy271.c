@@ -10,6 +10,7 @@
 
 #include "sensor_honey_gy271.h"
 
+#ifdef RT_USING_SENSOR
 #define DBG_TAG "sensor.honey.gy271"
 #define DBG_LVL DBG_INFO
 #include <rtdbg.h>
@@ -17,7 +18,7 @@
 #define SENSOR_GYRO_RANGE_MAX (8)
 #define SENSOR_GYRO_RANGE_MIN (-8)
 
-#define PKG_USING_GY271
+
 static struct gy271_device *temp_honey_dev;
 
 static rt_err_t _gy271_init(struct rt_sensor_intf *intf)
@@ -47,9 +48,8 @@ static rt_size_t _gy271_polling_get_data(rt_sensor_t sensor, struct rt_sensor_da
         }
         else
         {
-            LOG_E('gy271 read data error!');
+            LOG_E("gy271 read data error!");
         }
-        
     }
     else
     {
@@ -139,3 +139,4 @@ static int rt_hw_gy271_port(void)
 }
 INIT_COMPONENT_EXPORT(rt_hw_gy271_port);
 
+#endif
