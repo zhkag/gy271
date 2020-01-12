@@ -58,3 +58,4 @@ void gy271_deinit(gy271_device_t dev);
 rt_err_t gy271_read_data(gy271_device_t dev,struct gy271_data  *data);
 
 #endif
+

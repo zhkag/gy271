@@ -32,7 +32,7 @@ static rt_err_t sensor_gy271_sample(int argc, char *argv[])
 MSH_CMD_EXPORT(sensor_gy271_sample,sensor gy271 sample);
 
 
-static rt_err_t i2c_gy271_sample(int argc, char *argv[])
+static void i2c_gy271_sample(int argc, char *argv[])
 {
     char bus[RT_NAME_MAX];
     gy271_data_t data;
@@ -51,6 +51,7 @@ static rt_err_t i2c_gy271_sample(int argc, char *argv[])
         rt_kprintf("x:%d y:%d z:%d\n", data.x, data.y, data.z);
         rt_thread_mdelay(100);
     }
+		
 }
 
 MSH_CMD_EXPORT(i2c_gy271_sample, i2c gy271 sample);

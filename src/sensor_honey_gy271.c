@@ -36,7 +36,7 @@ static rt_size_t _gy271_polling_get_data(rt_sensor_t sensor, struct rt_sensor_da
 {
     gy271_data_t mag_data;
     rt_err_t result;
-    if(sensor->info.type = RT_SENSOR_CLASS_MAG)
+    if(sensor->info.type == RT_SENSOR_CLASS_MAG)
     {
         result = gy271_read_data(temp_honey_dev,&mag_data);
         if(result == RT_EOK)
@@ -132,7 +132,7 @@ static int rt_hw_gy271_port(void)
 {
     struct rt_sensor_config cfg;
 
-    cfg.intf.dev_name = "i2c1";
+    cfg.intf.dev_name = "i2c4";
     rt_hw_gy271_init("gy271",&cfg);
 
     return RT_EOK;

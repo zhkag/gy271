@@ -154,8 +154,8 @@ rt_err_t gy271_read_data(gy271_device_t dev,struct gy271_data  *data)
     }
     else
     {
+				LOG_E("The gy271 could not respond data read at this time. Please try again");
         return -RT_ERROR;
-        LOG_E("The gy271 could not respond data read at this time. Please try again");
     }
     rt_mutex_release(dev->lock);
 
