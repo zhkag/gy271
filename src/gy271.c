@@ -63,7 +63,7 @@ gy271_device_t gy271_init(const char *i2c_bus_name)
     gy271_device_t dev;
 
     RT_ASSERT(i2c_bus_name);
-    i2c_bus_name = "i2c1";
+
     dev = rt_calloc(1, sizeof(struct gy271_device));
     if (dev == RT_NULL)
     {
@@ -104,7 +104,7 @@ void gy271_deinit(gy271_device_t dev)
 rt_err_t gy271_read_data(gy271_device_t dev,struct gy271_data  *data)
 {
     uint8_t buffer[6];
-    //gy271_data_t data;
+
     rt_err_t result;
 
     RT_ASSERT(dev);
